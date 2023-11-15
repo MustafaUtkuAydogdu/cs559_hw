@@ -71,42 +71,42 @@ test_dataset = test_dataset.shuffle(1000).batch(batch_size=BATCH_SIZE)
 #build the model - we are going to try 3 different models 
 
 #model 1 - visual transformer - START
-model_vit = AttractivenessModel_vit()
-learning_rate_vit = 0.001
-optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate_vit)
+# model_vit = AttractivenessModel_vit()
+# learning_rate_vit = 0.001
+# optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate_vit)
 
 
-model_vit.compile(optimizer='adam', loss='mse', metrics=['mae'])
+# model_vit.compile(optimizer='adam', loss='mse', metrics=['mae'])
 
 
-print("gpu : ",tf.test.gpu_device_name())
-print(tf.config.list_physical_devices('GPU'))
+# print("gpu : ",tf.test.gpu_device_name())
+# print(tf.config.list_physical_devices('GPU'))
 
 
-#training
-model_vit.fit(train_images,train_labels ,epochs=100, validation_data=val_dataset,verbose=1)
+# #training
+# model_vit.fit(train_images,train_labels ,epochs=100, validation_data=val_dataset,verbose=1)
 
 
-#evaluate
-model_vit.evaluate(test_images, test_labels, verbose=1)
+# #evaluate
+# model_vit.evaluate(test_images, test_labels, verbose=1)
 #model 1 - visual transformer - END
 
 
 # #do same for resnet
-# from model_resnet import AttractivenessModel_resnet
+from model_resnet import AttractivenessModel_resnet
 
-# model_resnet = AttractivenessModel_resnet()
-# learning_rate_resnet = 0.001
-# optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate_resnet)
-
-
-# model_resnet.compile(optimizer='adam', loss='mse', metrics=['mae'])
-
-# model_resnet.fit(train_images,train_labels ,epochs=10, validation_data=val_dataset,verbose=1)
+model_resnet = AttractivenessModel_resnet()
+learning_rate_resnet = 0.001
+optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate_resnet)
 
 
-# #evaluate  
-# model_resnet.evaluate(test_images, test_labels, verbose=1)
+model_resnet.compile(optimizer='adam', loss='mse', metrics=['mae'])
+
+model_resnet.fit(train_images,train_labels ,epochs=10, validation_data=val_dataset,verbose=1)
+
+
+#evaluate  
+model_resnet.evaluate(test_images, test_labels, verbose=1)
 
 # do same for vanilla cnn
 # from model_vanilla_cnn import AttractivenessModel_vanilla_cnn

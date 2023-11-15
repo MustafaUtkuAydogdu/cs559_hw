@@ -1,6 +1,6 @@
 import tensorflow as tf
 from vit_keras import vit
-from tensorflow.keras.applications import ResNet50
+from keras.applications import ResNet50
 
 
 
@@ -10,7 +10,7 @@ class AttractivenessModel_resnet(tf.keras.Model):
     def __init__(self):
         super(AttractivenessModel_resnet, self).__init__()
         # ResNet-50 backbone (excluding the top classification layer)
-        self.resnet_backbone = ResNet50(weights='imagenet', include_top=False, input_shape=(64, 64, 3))
+        self.resnet_backbone = ResNet50(weights='imagenet', include_top=False, input_shape=(80, 80, 3))
 
         # Global average pooling to reduce spatial dimensions
         self.global_avg_pooling = tf.keras.layers.GlobalAveragePooling2D()
@@ -24,7 +24,7 @@ class AttractivenessModel_resnet(tf.keras.Model):
 
         self.output_layer = tf.keras.layers.Dense(1, activation='linear')  # Linear activation for regression
 
-    def call(self, inputs):
+    def call(self, x):
         x = self.resnet_backbone(x)
 
         # Global average pooling
